@@ -42,7 +42,7 @@ const {
   const os = require('os')
   const Crypto = require('crypto')
   const path = require('path')
-  const prefix = config.PREFIX
+  
   
   const ownerNumber = ['94788770020']
   
@@ -83,6 +83,14 @@ const port = process.env.PORT || 9090;
   //=============================================
   
   async function connectToWA() {
+ //=============connect mongodb==============
+const connectDB = require('./lib/mongodb')
+connectDB();
+//========================================== 
+const {readEnv} = require('./lib/database')
+const config = await readEnv('');
+const prefix = config.PREFIX 
+//==========================================
   console.log("Connecting to WhatsApp ⏳️...");
   const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/sessions/')
   var { version } = await fetchLatestBaileysVersion()
